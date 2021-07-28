@@ -35,7 +35,10 @@ class SymptomsController < ApplicationController
 
   # DELETE /symptoms/1
   def destroy
+    id = @symptom.id
     @symptom.destroy
+    render json: id
+
   end
 
   private
