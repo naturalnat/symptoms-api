@@ -38,8 +38,24 @@ class SymptomsController < ApplicationController
     id = @symptom.id
     @symptom.destroy
     render json: id
-
   end
+
+  def addflag 
+    @symptom = Symptom.find(params[:id])
+    puts @symptom.flag
+
+    if @symptom.flag == false
+      @symptom.flag = true
+      @symptom.save
+    else
+      @symptom.flag = false
+      @symptom.save
+    end 
+
+    render json: @symptom
+    
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -49,6 +65,6 @@ class SymptomsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def symptom_params
-      params.require(:symptom).permit(:title, :severity, :notes)
+      params.require(:symptom).permit(:title, :severity, :notes, :flag)
     end
 end
